@@ -1,0 +1,168 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 30px 16px;
+    background: #f1f5f9;
+    color: #1e293b;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+.header {
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    margin-bottom: 8px;
+    color: #2563eb;
+}
+
+.header p {
+    color: #64748b;
+    line-height: 1.5;
+}
+
+#task-form {
+    display: flex;
+    gap: 10px;
+}
+
+#task-input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+button {
+    padding: 11px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+button:hover {
+    filter: brightness(0.92);
+}
+
+.add-button {
+    background: #2563eb;
+    color: white;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 24px 0;
+}
+
+.stat-card {
+    padding: 15px 8px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-card span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.stat-card strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 24px;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.filters button {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+.filters button.active {
+    background: #2563eb;
+    color: white;
+}
+
+#task-list {
+    display: grid;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.task-item input {
+    cursor: pointer;
+}
+
+.task-text {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.task-item.done .task-text {
+    color: #94a3b8;
+    text-decoration: line-through;
+}
+
+.delete-button {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+#empty-message {
+    padding: 12px;
+    color: #64748b;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px 14px;
+    }
+
+    #task-form {
+        flex-direction: column;
+    }
+
+    .stats {
+        gap: 6px;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+}

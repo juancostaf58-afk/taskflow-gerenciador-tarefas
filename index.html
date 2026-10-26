@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="container">
+        <header class="header">
+            <h1>Tarefas</h1>
+            <p>Organize suas tarefas e acompanhe seu progresso.</p>
+        </header>
+
+        <form id="task-form">
+            <input
+                type="text"
+                id="task-input"
+                placeholder="O que você precisa fazer?"
+                maxlength="150"
+                required
+            >
+            <button type="submit" class="add-button">Adicionar</button>
+        </form>
+
+        <section class="stats">
+            <div class="stat-card">
+                <span>Total</span>
+                <strong id="total">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Pendentes</span>
+                <strong id="pending">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Concluídas</span>
+                <strong id="completed">0</strong>
+            </div>
+        </section>
+
+        <nav class="filters" aria-label="Filtrar tarefas">
+            <button type="button" data-filter="all" class="active">
+                Todas
+            </button>
+            <button type="button" data-filter="pending">
+                Pendentes
+            </button>
+            <button type="button" data-filter="completed">
+                Concluídas
+            </button>
+        </nav>
+
+        <ul id="task-list"></ul>
+
+        <p id="empty-message">Nenhuma tarefa encontrada.</p>
+    </main>
+</body>
+</html>

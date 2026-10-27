@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Tarefas</title>
+    <title>TaskFlow - Gerenciador de Tarefas</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
     <main class="container">
         <header class="header">
-            <h1>Tarefas</h1>
+            <h1>TaskFlow</h1>
             <p>Organize suas tarefas e acompanhe seu progresso.</p>
         </header>
 
@@ -21,12 +21,24 @@
                 id="task-input"
                 placeholder="O que você precisa fazer?"
                 maxlength="150"
+                aria-label="Descrição da tarefa"
                 required
             >
-            <button type="submit" class="add-button">Adicionar</button>
+
+            <label for="task-priority">Prioridade</label>
+            <select id="task-priority">
+                <option value="low">Baixa</option>
+                <option value="medium" selected>Média</option>
+                <option value="high">Alta</option>
+            </select>
+
+            <label for="task-deadline">Prazo (opcional)</label>
+            <input type="date" id="task-deadline">
+
+            <button type="submit" class="add-button">Adicionar tarefa</button>
         </form>
 
-        <section class="stats">
+        <section class="stats" aria-label="Resumo das tarefas">
             <div class="stat-card">
                 <span>Total</span>
                 <strong id="total">0</strong>

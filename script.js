@@ -1,133 +1,95 @@
 
-const form = document.querySelector("#task-form");
-const input = document.querySelector("#task-input");
-const taskList = document.querySelector("#task-list");
-const emptyMessage = document.querySelector("#empty-message");
-
-const totalElement = document.querySelector("#total");
-const pendingElement = document.querySelector("#pending");
-const completedElement = document.querySelector("#completed");
-const filterButtons = document.querySelectorAll("[data-filter]");
-
-let tasks = [];
-
-try {
-    tasks = JSON.parse(
-        localStorage.getItem("taskflow-tasks")
-    ) || [];
-} catch {
-    tasks = [];
+/* Formulário de tarefas */
+#task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-let currentFilter = "all";
-
-function saveTasks() {
-    localStorage.setItem(
-        "taskflow-tasks",
-        JSON.stringify(tasks)
-    );
+#task-form input,
+#task-form select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font: inherit;
 }
 
-function renderTasks() {
-    taskList.replaceChildren();
-
-    const filteredTasks = tasks.filter(task => {
-        if (currentFilter === "pending") {
-            return !task.completed;
-        }
-
-        if (currentFilter === "completed") {
-            return task.completed;
-        }
-
-        return true;
-    });
-
-    filteredTasks.forEach(task => {
-        const item = document.createElement("li");
-        item.className = "task-item";
-
-        if (task.completed) {
-            item.classList.add("done");
-        }
-
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.checked = task.completed;
-        checkbox.setAttribute(
-            "aria-label",
-            `Concluir tarefa: ${task.text}`
-        );
-
-        checkbox.addEventListener("change", () => {
-            task.completed = checkbox.checked;
-            saveTasks();
-            renderTasks();
-        });
-
-        const text = document.createElement("span");
-        text.className = "task-text";
-        text.textContent = task.text;
-
-        const deleteButton = document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.className = "delete-button";
-        deleteButton.textContent = "Excluir";
-
-        deleteButton.addEventListener("click", () => {
-            tasks = tasks.filter(item => item.id !== task.id);
-            saveTasks();
-            renderTasks();
-        });
-
-        item.append(checkbox, text, deleteButton);
-        taskList.appendChild(item);
-    });
-
-    totalElement.textContent = tasks.length;
-
-    pendingElement.textContent = tasks.filter(
-        task => !task.completed
-    ).length;
-
-    completedElement.textContent = tasks.filter(
-        task => task.completed
-    ).length;
-
-    emptyMessage.hidden = filteredTasks.length > 0;
-
-    filterButtons.forEach(button => {
-        const active = button.dataset.filter === currentFilter;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
-    });
+#task-form label {
+    font-weight: 600;
 }
 
-form.addEventListener("submit", event => {
-    event.preventDefault();
+/* Informações de cada tarefa */
+.task-details {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 8px;
+}
 
-    const text = input.value.trim();
+.task-text {
+    overflow-wrap: anywhere;
+}
 
-    if (!text) return;
+.task-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.85rem;
+}
 
-    tasks.push({
-        id: crypto.randomUUID(),
-        text,
-        completed: false
-    });
+.priority {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
 
-    saveTasks();
-    renderTasks();
+.priority-low {
+    background: #e0f2fe;
+    color: #075985;
+}
 
-    input.value = "";
-    input.focus();
-});
+.priority-medium {
+    background: #fef3c7;
+    color: #92400e;
+}
 
-filterButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        currentFilter = button.dataset.filter;
-        renderTasks();
-    });
-});
+.priority-high {
+    background: #fee2e2;
+    color: #991b1b;
+}
 
-renderTasks();
+.task-deadline {
+    padding: 4px 0;
+}
+
+.task-deadline.overdue {
+    color: #b91c1c;
+    font-weight: 700;
+}
+
+/* Organização dos itens */
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.task-item.done .task-text {
+    text-decoration: line-through;
+    opacity: 0.65;
+}
+
+@media (max-width: 480px) {
+    .task-item {
+        flex-wrap: wrap;
+    }
+
+    .task-details {
+        flex-basis: calc(100% - 40px);
+    }
+
+    .delete-button {
+        margin-left: auto;
+    }
+}
